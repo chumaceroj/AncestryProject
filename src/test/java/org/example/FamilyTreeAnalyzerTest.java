@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.List;
+import java.util.HashMap;
 
 public class FamilyTreeAnalyzerTest {
     FamilyTreeAnalyzer analyzer;
@@ -55,4 +56,25 @@ public class FamilyTreeAnalyzerTest {
         List<Family> results = analyzer.searchByMarriageDate("1975");
         assertEquals(1, results.size());
     }
+
+    @Test
+    public void testFindAncestors() {
+        HashMap<Integer, List<Person>> ancestors = analyzer.findAncestors("@I3@");
+        assertEquals(1, ancestors.size()); // only 1 generation since John and Jane have no parents
+        assertEquals(2, ancestors.get(1).size()); // 2 parents
+    }
+
+    @Test
+    public void testFindDescendants() {
+        HashMap<Integer, List<Person>> descendants = analyzer.findDescendants("@I1@");
+        assertEquals(1, descendants.size()); // 1 generation since Jimmy has no kids
+        assertEquals(1, descendants.get(1).size()); // 1 child - Jimmy
+    }
+
+    @Test
+    public void testFindDescendantsNoChildren() {
+        HashMap<Integer, List<Person>> descendants = analyzer.findDescendants("@I3@");
+        assertTrue(descendants.isEmpty()); // Jimmy has no kids
+    }
+
 }

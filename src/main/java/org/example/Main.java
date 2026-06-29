@@ -13,10 +13,26 @@ public class Main {
 
         FamilyTreeAnalyzer analyzer = new FamilyTreeAnalyzer(parser.people, parser.families);
 
-        List<Person> results = analyzer.searchByName("Garrison");
-        for (Person p : results) {
-            System.out.println(p.firstName + " " + p.lastName + " - Born: " + p.birthDate);
+        // List<Person> results = analyzer.searchByName("Garrison");
+        // for (Person p : results) {
+        //    System.out.println(p.firstName + " " + p.lastName + " - Born: " + p.birthDate);
+        // }
+        // System.out.println("People with name 'House': " + results.size());
+
+        // HashMap<Integer, List<Person>> ancestors = analyzer.findAncestors("@I292021289862@");
+        // for (int gen : ancestors.keySet()) {
+            // System.out.println("Generation " + gen + ":");
+            // for (Person p : ancestors.get(gen)) {
+                // System.out.println("  " + p.firstName + " " + p.lastName + " (b. " + p.birthDate + ")");
+            // }
+        // }
+        System.out.println("\n--- Descendants of _ ---");
+        HashMap<Integer, List<Person>> descendants = analyzer.findDescendants("@I292021299547@");
+        for (int gen : descendants.keySet()) {
+            System.out.println("Generation " + gen + ":");
+            for (Person p : descendants.get(gen)) {
+                System.out.println("  " + p.firstName + " " + p.lastName + " (b. " + p.birthDate + ")");
+            }
         }
-        System.out.println("People with name 'House': " + results.size());
     }
 }
