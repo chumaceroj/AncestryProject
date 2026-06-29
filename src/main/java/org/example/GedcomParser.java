@@ -61,6 +61,8 @@ public class GedcomParser {
                     currentEvent = "BIRT";
                 } else if (line.contains("DEAT")) {
                     currentEvent = "DEAT";
+                } else if (line.startsWith("1")) {
+                    currentEvent = null;
                 } else if (line.contains("DATE") && currentEvent != null) {
                     if (currentEvent.equals("BIRT")) {
                         currentPerson.birthDate = line.substring(7);
@@ -91,6 +93,8 @@ public class GedcomParser {
                     currentEvent = "MARR";
                 } else if (line.contains("DIV")) {
                     currentEvent = "DIV";
+                } else if (line.startsWith("1")) {
+                    currentEvent = null;
                 } else if (line.contains("DATE") && currentEvent != null) {
                     if (currentEvent.equals("MARR")) {
                         currentFamily.marriageDate = line.substring(7);
