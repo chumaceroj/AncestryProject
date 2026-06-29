@@ -26,12 +26,24 @@ public class Main {
                 // System.out.println("  " + p.firstName + " " + p.lastName + " (b. " + p.birthDate + ")");
             // }
         // }
-        System.out.println("\n--- Descendants of _ ---");
-        HashMap<Integer, List<Person>> descendants = analyzer.findDescendants("@I292021299547@");
-        for (int gen : descendants.keySet()) {
-            System.out.println("Generation " + gen + ":");
-            for (Person p : descendants.get(gen)) {
-                System.out.println("  " + p.firstName + " " + p.lastName + " (b. " + p.birthDate + ")");
+        // System.out.println("\n--- Descendants of _ ---");
+        // HashMap<Integer, List<Person>> descendants = analyzer.findDescendants("@I292021299547@");
+        // for (int gen : descendants.keySet()) {
+            // System.out.println("Generation " + gen + ":");
+            // for (Person p : descendants.get(gen)) {
+                // System.out.println("  " + p.firstName + " " + p.lastName + " (b. " + p.birthDate + ")");
+            // }
+        // }
+
+        int depth = analyzer.findGenerationDepth("@I292021289862@");
+        System.out.println("Generations deep: " + depth);
+
+        List<Person> result = analyzer.findRelationshipPath("@I292021289862@", "@I292208842573@");
+        if (result == null) {
+            System.out.println("No connection found.");
+        } else {
+            for (Person p : result) {
+                System.out.print(p.firstName + " " + p.lastName + " --> ");
             }
         }
     }

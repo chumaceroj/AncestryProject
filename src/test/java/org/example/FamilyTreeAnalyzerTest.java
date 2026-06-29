@@ -77,4 +77,34 @@ public class FamilyTreeAnalyzerTest {
         assertTrue(descendants.isEmpty()); // Jimmy has no kids
     }
 
+    @Test
+    public void testFindGenerationDepth() {
+        int depth = analyzer.findGenerationDepth("@I3@");
+        assertEquals(1, depth); // Jimmy has 1 generation of ancestors (parents)
+    }
+
+    @Test
+    public void testFindRelationshipPath() {
+        List<Person> path = analyzer.findRelationshipPath("@I1@", "@I3@");
+        assertNotNull(path);
+        assertEquals(2, path.size()); // John → Jimmy (parent to child)
+        assertEquals("@I1@", path.get(0).id);
+        assertEquals("@I3@", path.get(1).id);
+    }
+
+    @Test
+    public void testFindRelationshipPathSpouse() {
+        List<Person> path = analyzer.findRelationshipPath("@I1@", "@I2@");
+        assertNotNull(path);
+        assertEquals(2, path.size()); // John → Jane (spouses)
+    }
+
+    @Test
+    public void testFindRelationshipPathSelf() {
+        List<Person> path = analyzer.findRelationshipPath("@I1@", "@I1@");
+        assertNotNull(path);
+        assertEquals(1, path.size());
+        assertEquals("@I1@", path.get(0).id);
+    }
+
 }
